@@ -1,6 +1,6 @@
 function App() {
   return (
-    <div>
+    <div className="main-wrapper">
       <h3>Guess the character</h3>
     </div>
   );
