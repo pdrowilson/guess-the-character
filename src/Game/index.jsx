@@ -41,19 +41,19 @@ function Game({
       </div>
       {/* <p className="text-gray-900 font-medium p-2">{chosenCharacter}</p> */}
       <div className="text-gray-900 font-medium flex">
-        {letters.map((e) => (
+        {letters.map((e, i) => (
           guessedLetters.includes((e)) ? (
-            <p key={e} className="w-20 py-6 mx-3 bg-white rounded uppercase flex items-center justify-center">{e}</p>
-          ) : <p key={e} className="w-20 py-6 mx-3 bg-white rounded uppercase flex items-center justify-center" />
+            <p key={i} className="w-20 py-6 mx-3 bg-white rounded uppercase flex items-center justify-center">{e}</p>
+          ) : <p key={i} className="w-20 py-6 mx-3 bg-white rounded uppercase flex items-center justify-center" />
         ))}
       </div>
 
       <p className="mx-1 my-3 bg-white border-2 border-neutral rounded-md p-2 font-medium">Wrong Letter:</p>
-      {wrongLetters.map((e) => (
-        <span key={e} className="mx-1 my-3 bg-white border-2 border-neutral rounded-md p-2 font-medium">
-          {e}
-        </span>
-      ))}
+      <div className="flex">
+        {wrongLetters.map((e, i) => (
+          <span key={i} className="mx-1 my-3 bg-white border-2 border-neutral rounded-md p-2 font-medium text-red-600">{e}</span>
+        ))}
+      </div>
 
       <form onSubmit={handleSubmit}>
         <input

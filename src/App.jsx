@@ -42,8 +42,26 @@ function App() {
   };
 
   const verifyLetter = (l) => {
+    const normalizedLetter = l.toLowerCase();
+
+    if (guessedLetters.includes(normalizedLetter) || wrongLetters.includes(normalizedLetter)) {
+      return;
+    }
+
+    if (letters.includes(normalizedLetter)) {
+      setGuessedLetters((actualGuessedLetters) => [
+        ...actualGuessedLetters, l,
+      ]);
+    } else {
+      setWrongLetter((actualWrongLetters) => [
+        ...actualWrongLetters, normalizedLetter,
+      ]);
+    }
+
     console.log(l);
   };
+  console.log('g', guessedLetters);
+  console.log('w', wrongLetters);
 
   const restartGame = () => {
     setGameStage(stages[0].stage);
