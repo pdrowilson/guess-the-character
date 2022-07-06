@@ -11,7 +11,7 @@ function Game({
   score
 }) {
   return (
-    <div className="p-8 w-9/12 bg-white/[.6] flex flex-col items-center justify-center rounded text-gray-900 ">
+    <div className="p-8 w-full mx-10 bg-white/[.6] flex flex-col items-center justify-center rounded text-gray-900 ">
       <h2 className="text-xl font-medium mb-6 uppercase rounded">Guess the character from: {chosenAnime.toUpperCase()}</h2>
       <div className='flex'>
         <h4 className='mx-1 my-3 bg-white border-2 border-neutral rounded-md p-2 font-medium'>
