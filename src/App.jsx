@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Game from './Game';
 import GameOver from './GameOver';
 import StartScreen from './StartScreen';
@@ -56,12 +56,15 @@ function App() {
       setWrongLetter((actualWrongLetters) => [
         ...actualWrongLetters, normalizedLetter,
       ]);
+      setGuesses((actulGuesses) => actulGuesses - 1);
     }
-
-    console.log(l);
   };
-  console.log('g', guessedLetters);
-  console.log('w', wrongLetters);
+
+  useEffect(() => {
+    if (guesses <= 0) {
+      setGameStage(stages[2].stage);
+    }
+  }, [guesses]);
 
   const restartGame = () => {
     setGameStage(stages[0].stage);
