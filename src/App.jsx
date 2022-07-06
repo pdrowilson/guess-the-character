@@ -60,13 +60,21 @@ function App() {
     }
   };
 
+  const clearLetterStages = () => {
+    setGuessedLetters([]);
+    setWrongLetter([]);
+  };
+
   useEffect(() => {
     if (guesses <= 0) {
+      clearLetterStages();
       setGameStage(stages[2].stage);
     }
   }, [guesses]);
 
   const restartGame = () => {
+    setScore(0);
+    setGuesses([3]);
     setGameStage(stages[0].stage);
   };
 
