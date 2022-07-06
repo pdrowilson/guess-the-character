@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Game from './Game';
 import GameOver from './GameOver';
 import StartScreen from './StartScreen';
@@ -22,15 +22,21 @@ function App() {
   const [guesses, setGuesses] = useState(3);
   const [score, setScore] = useState(0);
 
-  const getRandomAnimeAndChar = () => {
+  const getRandomAnimeAndChar = useCallback(() => {
     const animes = Object.keys(animeCharacters);
     const anime = animes[Math.floor(Math.random() * Object.keys(animes).length)];
     const character = animeCharacters[anime][Math
       .floor(Math.random() * animeCharacters[anime].length)];
     return { character, anime };
+  }, [animeCharacters]);
+
+  const clearLetterStages = () => {
+    setGuessedLetters([]);
+    setWrongLetter([]);
   };
 
-  const startGame = () => {
+  const startGame = useCallback(() => {
+    clearLetterStages();
     const { character, anime } = getRandomAnimeAndChar();
     let splitedCharacterName = character.split('');
     splitedCharacterName = splitedCharacterName.map((l) => l.toLowerCase());
@@ -39,7 +45,7 @@ function App() {
     setChosenCharacter(character);
     setLetters(splitedCharacterName);
     setGameStage(stages[1].stage);
-  };
+  }, [getRandomAnimeAndChar]);
 
   const verifyLetter = (l) => {
     const normalizedLetter = l.toLowerCase();
@@ -60,11 +66,6 @@ function App() {
     }
   };
 
-  const clearLetterStages = () => {
-    setGuessedLetters([]);
-    setWrongLetter([]);
-  };
-
   useEffect(() => {
     if (guesses <= 0) {
       clearLetterStages();
@@ -72,10 +73,27 @@ function App() {
     }
   }, [guesses]);
 
+  useEffect(() => {
+    const uniqueLetters = [...new Set(letters)];
+
+    console.log(uniqueLetters);
+    console.log(guessedLetters);
+
+    // win condition
+    if (guessedLetters.length === uniqueLetters.length) {
+      // add score
+      // eslint-disable-next-line no-return-assign, no-param-reassign
+      setScore((actualScore) => actualScore += 100);
+
+      // restart game with new word
+      startGame();
+    }
+  }, [guessedLetters, letters, startGame]);
+
   const restartGame = () => {
-    setScore(0);
     setGuesses([3]);
     setGameStage(stages[0].stage);
+    setScore(0);
   };
 
   return (
@@ -99,7 +117,7 @@ function App() {
           score={score}
         />
         )}
-      {gameStage === 'gameover' && <GameOver restartGame={restartGame} />}
+      {gameStage === 'gameover' && <GameOver score={score} restartGame={restartGame} />}
     </div>
   );
 }
