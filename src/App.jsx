@@ -17,10 +17,10 @@ function App() {
   const [chosenCharacter, setChosenCharacter] = useState('');
   const [chosenAnime, setChosenAnime] = useState('');
   const [letters, setLetters] = useState([]);
-  const [guessedLetters, setGuessedLetters] = useState([])
-  const [wrongLetters, setWrongLetter] = useState([])
-  const [guesses, setGuesses] = useState(3)
-  const [score, setScore] = useState(0)
+  const [guessedLetters, setGuessedLetters] = useState([]);
+  const [wrongLetters, setWrongLetter] = useState([]);
+  const [guesses, setGuesses] = useState(3);
+  const [score, setScore] = useState(0);
 
   const getRandomAnimeAndChar = () => {
     const animes = Object.keys(animeCharacters);
@@ -41,8 +41,8 @@ function App() {
     setGameStage(stages[1].stage);
   };
 
-  const endGame = () => {
-    setGameStage(stages[2].stage);
+  const verifyLetter = (l) => {
+    console.log(l);
   };
 
   const restartGame = () => {
@@ -60,7 +60,7 @@ function App() {
       {gameStage === 'game'
         && (
         <Game
-          endGame={endGame}
+          verifyLetter={verifyLetter}
           chosenAnime={chosenAnime}
           chosenCharacter={chosenCharacter}
           letters={letters}
