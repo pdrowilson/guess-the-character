@@ -3,8 +3,8 @@
 export const animeCharacters = {
   naruto: ['Naruto', 'Kakashi', 'Sasuke', 'Sakura', 'Jiraya'],
   onepiece: ['Luffy', 'Zoro', 'Ace', 'Sanji', 'Nami'],
-  jojo: ['Joseph Joestar', 'Dio', 'Jolyne Kujo', 'Jotaro', 'Josuke'],
+  jojo: ['Joestar', 'Dio', 'Jotaro', 'Josuke'],
   hunterxhunter: ['Leorio', 'Gon', 'Hisoka', 'Killua', 'Kurapika'],
-  bleach: ['Ichigo', 'Byakuya', 'Yoruichi', 'Kisuke Urahara', 'Kenpachi Zaraki'],
+  bleach: ['Ichigo', 'Byakuya', 'Yoruichi', 'Urahara', 'Kenpachi'],
   dragonball: ['Goku', 'Gohan', 'Cell', 'Freeza', 'Vegeta', 'Bulma'],
 };

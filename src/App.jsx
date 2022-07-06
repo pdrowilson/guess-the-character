@@ -13,9 +13,27 @@ function App() {
   ];
 
   const [gameStage, setGameStage] = useState(stages[0].stage);
-  const [characters] = useState(animeCharacters);
+  // const [characters] = useState(animeCharacters);
+  const [chosenCharacter, setChosenCharacter] = useState('');
+  const [chosenAnime, setChosenAnime] = useState('');
+  const [letters, setLetters] = useState([]);
+
+  const getRandomAnimeAndChar = () => {
+    const animes = Object.keys(animeCharacters);
+    const anime = animes[Math.floor(Math.random() * Object.keys(animes).length)];
+    const character = animeCharacters[anime][Math
+      .floor(Math.random() * animeCharacters[anime].length)];
+    return { character, anime };
+  };
 
   const startGame = () => {
+    const { character, anime } = getRandomAnimeAndChar();
+    let splitedCharacterName = character.split('');
+    splitedCharacterName = splitedCharacterName.map((l) => l.toLowerCase());
+
+    setChosenAnime(anime);
+    setChosenCharacter(character);
+    setLetters(splitedCharacterName);
     setGameStage(stages[1].stage);
   };
 
@@ -27,13 +45,23 @@ function App() {
     setGameStage(stages[0].stage);
   };
 
-  console.log('teste', gameStage);
-  console.log('data', characters);
-
   return (
     <div className="flex justify-center items-center h-screen w-full">
-      {gameStage === 'start' && <StartScreen startGame={startGame} />}
-      {gameStage === 'game' && <Game endGame={endGame} />}
+      {gameStage === 'start'
+        && (
+        <StartScreen
+          startGame={startGame}
+        />
+        )}
+      {gameStage === 'game'
+        && (
+        <Game
+          endGame={endGame}
+          chosenAnime={chosenAnime}
+          chosenCharacter={chosenCharacter}
+          letters={letters}
+        />
+        )}
       {gameStage === 'gameover' && <GameOver restartGame={restartGame} />}
     </div>
   );
